@@ -1,0 +1,35 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                                            
+#    This is documentation for installing python and it's IDE
+#                                                                            
+#    python3.X: main programming language
+#    pycharm: main platform for python
+#                                                                           
+# # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+Link_of_yunDisk_baidu£ºhttps://pan.baidu.com/s/14-rbRVpm62r0sDjCtlBKBQ 
+
+Authentication£ºmbgo
+
+
+1¡¢Installing python3.X
+path_to_packages_from_yunDisk£º/apps installation/python3.X/python3.7.3.exe
+detailed_process_refer_to_link£ºhttp://www.runoob.com/python3/python3-install.html
+
+2¡¢Installing pycharm
+path_to_packages_from_yunDisk£º/apps installation/pycharm/pycharm-community.exe
+detailed_process_refer_to_link£ºhttps://jingyan.baidu.com/article/f00622286e92f4fbd2f0c855.html
+
+3¡¢installing other packages for python (such as scrapy)
+win + R  ->  cmd -> enter 
+pip install wheel
+pip install lxml
+pip install Twisted-19.2.0-cp37-cp37m-win32.whl   -> just for python version 3.7, please choose 3.6 if you are
+pip install pywin32
+pip install scrapy
+pip install numpy
+pip install pandas
+pip install Pillow
+pip install docx
+pip install xlutils
+pip install Django
