@@ -1,0 +1,2 @@
+# basic
+INSERT <tablename> (key1, key2) VALUES (value1, value2);

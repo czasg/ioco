@@ -1,0 +1,39 @@
+# replace,
+# if exist, drop it and insert new one line
+# if not exist, insert new one line
+REPLACE INTO students (id, class_id, name, gender, score) VALUES (1, 1, 'czaOrz', 'F', 99); 
+
+
+# INSERT INTO .. ON DUPLICATE KEY UPDATE ..
+# if exist, update it
+# if not exist, insert new one line
+INSERT INTO students (id, class_id, name, gender, score) VALUES (1, 1, '小明', 'F', 99) 
+ON DUPLICATE KEY UPDATE 
+name='小明', gender='F', score=99;
+
+
+# INSERT IGNORE INTO
+# if exist, ignore this command
+# if not exist, insert new one line
+INSERT IGNORE INTO students (id, class_id, name, gender, score) VALUES (1, 1, '小明', 'F', 99);
+
+
+# fast create new table from old table by some conditions
+CREATE TABLE students_of_class1 SELECT * FROM students WHERE class_id=1;
+
+CREATE TABLE statistics (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    class_id BIGINT NOT NULL,
+    average DOUBLE NOT NULL,
+    PRIMARY KEY (id)
+);
+INSERT INTO statistics (class_id, average) 
+SELECT class_id, AVG(score) FROM students GROUP BY class_id;
+
+
+# transaction
+# execute all and commit all, not commit step by step 
+BEGIN;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;

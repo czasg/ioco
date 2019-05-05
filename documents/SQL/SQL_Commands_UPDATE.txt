@@ -1,0 +1,5 @@
+# basic
+UPDATE <tablename> SET key1=newValue, key2=newValue WHERE <conditions>
+
+UPDATE students SET name='czaOrz', score=77 WHERE id>=5 AND id<=7;
+UPDATE students SET score=60;   -> update all rows in table

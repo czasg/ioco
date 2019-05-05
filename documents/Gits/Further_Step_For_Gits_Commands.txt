@@ -1,0 +1,52 @@
+# show different between work place and version
+git diff HEAD -- test.txt
+
+# reset file when it's not [add]
+git checkout -- test.txt   -> drop you modification
+
+# when you have [add] but not [commit], and you regret it
+# HEAD meaning current version
+git reset HEAD test.txt    -> drop staging area
+git checkout -- test.txt    -> drop modification
+
+# query history of commit
+git log
+git log --pretty=oneline
+
+# it record each command of your
+git reflog
+
+# reset previous version
+git reset --hard HEAD^
+# reset specified version by commit id
+git reset --hard <COMMIT ID>
+
+# create new branch
+git checkout -b new_branch
+# it also mean
+git branch new_branch
+git chechout new_branch
+
+# chechout master after you have amended bug, then to merge modification on brach of master
+git merge new_branch   -> now is on branch master
+git branch -d new_branch  -> delete branch
+
+
+# when you have some modification but you have to stop even though it's no complete
+# you can store you modification in stash, and get it when you need any time
+git stash   -> start stash
+git stash list   -> show all stashes
+git stash apply stash@{0}   -> restore the specified modification
+git stash drop stash@{0}   -> drop stash
+git stash pop    -> restore the last modification and delete the stash
+
+
+# tag
+git tag   -> show all tags
+git tag <tagname>   -> make tag for commit
+git tag -a <tagname> -m "describe for tag"   -> define content of tag 
+git show v0.1   -> show details of tag
+git tag -d v0.1   -> deop tag
+git push origin v1.0   -> push specified tag to remote
+git push origin --tags   -> push all tags
+git push origin :refs/tags/<tagname>   -> remove tag in remote

@@ -1,0 +1,76 @@
+# baisc commands
+SELECT * FROM students;
+SELECT * FROM students WHERE score >= 80;
+SELECT * FROM students WHERE score >= 80 AND gender = 'M';
+SELECT * FROM students WHERE score >= 80 OR gender = 'M';
+SELECT * FROM students WHERE class_id <> 2;  -> "class_id <> 2" mean to "NOT class_id = 2"
+SELECT * FROM students WHERE (score < 80 OR score > 90) AND gender = 'M';
+
+
+SELECT id, score, name FROM students;
+SELECT id, score points, name FROM students;  -> "score points" mean rename the column
+SELECT id, score points, name FROM students WHERE gender = 'M';
+
+
+SELECT id, name, gender, score FROM students ORDER BY score;   -> order, value is LOW to HIGH
+SELECT id, name, gender, score FROM students ORDER BY score DESC;   -> DESC mean HIGH to LOW
+SELECT id, name, gender, score FROM students ORDER BY score DESC, gender;   -> order gender after score
+SELECT id, name, gender, score FROM students WHERE class_id = 1 ORDER BY score DESC;
+
+
+SELECT id, name, gender, score FROM students ORDER BY score DESC LIMIT 3 OFFSET 0;  -> first page, count is 3
+SELECT id, name, gender, score FROM students ORDER BY score DESC LIMIT 3 OFFSET 3;  -> next page is "3 OFFSET 6"
+
+
+
+SUM	
+AVG	
+MAX	
+MIN	
+
+SELECT COUNT(*) FROM students;
+SELECT COUNT(*) num FROM students;  -> rename column COUNT(*) to num
+SELECT COUNT(*) boys FROM students WHERE gender = 'M';  -> calculate out man in table students 
+
+
+SELECT COUNT(*) num FROM students GROUP BY class_id;  -> classify group then count it
+SELECT class_id, COUNT(*) num FROM students GROUP BY class_id;   -> classify and count each
+
+SELECT class_id, gender, COUNT(*) num FROM students GROUP BY class_id, gender;  -> classify by class_id and gender
+SELECT class_id, AVG(score) from students group by class_id;
+SELECT class_id, gender, AVG(score) from students group by class_id, gender;
+
+
+
+### many tables ###
+
+SELECT * FROM students, classes;   -> query many tables
+
+SELECT
+    s.id sid,
+    s.name,
+    s.gender,
+    s.score,
+    c.id cid,
+    c.name cname
+FROM students s, classes c
+WHERE s.gender = 'M' AND c.id = 1;  -> pretty way to query in many tables
+
+
+INNER JOIN   -> intersection
+RIGHT OUTER JOIN   -> data in right and intersection but not left
+LEFT OUTER JOIN   -> data in left and intersection but not right
+FULL OUTER JOIN   -> data from all and fill NuN when it not exists
+
+
+SELECT s.id, s.name, s.class_id, c.name class_name, s.gender, s.score
+FROM students s
+INNER JOIN classes c
+ON s.class_id = c.id;  -> data first from s and second frpm c, for intersection
+
+
+
+
+
+
+

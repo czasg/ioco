@@ -1,0 +1,31 @@
+# create new catalog - environment linux
+su  -> enter the root model
+mkdir /gits  -> enter you catalog by "cd /gits"
+
+# create new git repository
+git init --bare ioco.git
+
+# reset the authority management
+chmod -R 777 ioco.git
+
+# create new user
+useradd username  -> create user
+passwd username  -> reset the pass word for new user
+
+# if you don't want to limit the new user, ignore this command
+vim /etc/passwd  -> it store all user info, you can look user you add in the last line
+username:x:1000:1000::/home/username:/bin/bash  -> if you do this, user can just use bash command
+username:x:1000:1000::/home/username:/bin/git-shell  -> and this, user can use shell IDE to log in server but no bash
+
+# create new group and add user in
+groupadd groupname  -> create new group
+usermod -G groupname username  -> add user to this group
+cat /etc/group  -> to check if it is success
+
+# reset the authority management
+chown -R username:groupname /path/to/ioco.git
+
+# online configuring done! then you can check by next command in offline environment to fetch it:
+# first fetch may block, because you need to affirm .ssh authenticate, just enter yes or ignore
+ssh username@{IP} 'cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+git clone username@{IP}:/path/to/ioco.git
