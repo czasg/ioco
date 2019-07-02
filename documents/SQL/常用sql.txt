@@ -1,0 +1,12 @@
+INSERT INTO user (host, user, password, select_priv, insert_priv, update_priv) VALUES ('localhost', 'cza', PASSWORD('cza19950917'), 'Y', 'Y', 'Y');
+
+// 分开
+create user '用户名称'@'localhost' identified by '用户密码';
+create user 'cza'@'localhost' identified by 'cza19950917';
+grant select,insert,update,delete,create on 数据库名称.* to 用户名称;
+grant select,insert,update,delete,create on cza.* to cza;
+//一步到位，允许用户cza创建以databaseName开头的数据库
+grant select, insert, update, delete on databaseName.* to 'cza'@'localhost' identified by 'cza19950917';
+
+//删除用户
+delete from mysql.user where user='tester';
