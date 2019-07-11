@@ -10,3 +10,6 @@ grant select, insert, update, delete on databaseName.* to 'cza'@'localhost' iden
 
 //删除用户
 delete from mysql.user where user='tester';
+
+
+alter table blogs add count bigint not null default 0
