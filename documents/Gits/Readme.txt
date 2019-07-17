@@ -15,6 +15,9 @@ $ git add .
 $ git commit -m 'reason to commit'
 $ git push origin master
 
+# if you want to amend your describe of commit, use this
+git commit --amend
+
 # create global storage for secret order
 $ git config --global credential.helper store
 

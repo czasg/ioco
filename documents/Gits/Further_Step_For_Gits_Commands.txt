@@ -9,6 +9,10 @@ git checkout -- test.txt   -> drop you modification
 git reset HEAD test.txt    -> drop staging area
 git checkout -- test.txt    -> drop modification
 
+# when you have commit but you want to drop it
+git reset --soft HEAD^   -> don't drop code and reset version, but still add
+git reset HEAD^          -> don't drop code and reset version, not add
+
 # query history of commit
 git log
 git log --pretty=oneline
@@ -25,7 +29,10 @@ git reset --hard <COMMIT ID>
 git checkout -b new_branch
 # it also mean
 git branch new_branch
-git chechout new_branch
+git checkout new_branch
+
+# checkout to a remote branch directly
+git checkout -t origin/beta_branch
 
 # chechout master after you have amended bug, then to merge modification on brach of master
 git merge new_branch   -> now is on branch master
