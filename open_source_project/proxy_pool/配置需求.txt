@@ -1,0 +1,8 @@
+第三方包：
+scrapy      >= 1.6.0
+requests    >= 2.21.0
+redis       >= 2.10.6
+flask       >= 1.0.2
+
+数据库：
+redis
