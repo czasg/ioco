@@ -13,8 +13,8 @@ class Response:
 
 
 class MySpider:
-    start_urls = ['http://fanyi.youdao.com/', 'http://fanyi.youdao.com/',
-                  'http://fanyi.youdao.com/', 'http://fanyi.youdao.com/']
+    start_urls = ['http://www.czasg.xyz', 'http://www.czasg.xyz',
+                  'http://www.czasg.xyz', 'http://www.czasg.xyz']
 
     def start_requests(self):
         yield from (Request(url, self.parse) for url in self.start_urls)
