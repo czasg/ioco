@@ -30,6 +30,7 @@ pip install scrapy
 pip install numpy
 pip install pandas
 pip install Pillow
-pip install docx
+pip install python-docx
 pip install xlutils
 pip install Django
+pip install pyexecjs
