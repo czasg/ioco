@@ -37,6 +37,7 @@ git checkout -t origin/beta_branch
 # chechout master after you have amended bug, then to merge modification on brach of master
 git merge new_branch   -> now is on branch master
 git branch -d new_branch  -> delete branch
+git push origin --delete remote_branch_name
 
 
 # when you have some modification but you have to stop even though it's no complete
