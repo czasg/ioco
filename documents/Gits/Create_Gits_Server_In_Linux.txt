@@ -29,3 +29,7 @@ chown -R username:groupname /path/to/ioco.git
 # first fetch may block, because you need to affirm .ssh authenticate, just enter yes or ignore
 ssh username@{IP} 'cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
 git clone username@{IP}:/path/to/ioco.git
+
+# create a new ssh-key for user
+ssh-keygen -t rsa -C "your_email@example.com"
+cat ~/.ssh/id_rsa
