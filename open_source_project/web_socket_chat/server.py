@@ -1,8 +1,8 @@
 from pywss import Pyws, route, json, ConnectManager
 
 
-@route('/ws/chat')
-def api_news_data(request, data):
+@route('/ws/chat')  # 注册path
+def ws_chat(request, data):
     json_data = json.loads(data)
     if json_data.get('start') == True:  # 接收start指令
         # 更新所有已建立连接的socket的当前在线人数
