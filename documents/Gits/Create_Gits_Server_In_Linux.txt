@@ -32,4 +32,4 @@ git clone username@{IP}:/path/to/ioco.git
 
 # create a new ssh-key for user
 ssh-keygen -t rsa -C "your_email@example.com"
-cat ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub
