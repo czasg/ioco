@@ -19,7 +19,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">公共频道&nbsp;&nbsp;&nbsp;<small>{{ `当前在线人数${online}` }}</small></h3>
                 </div>
-                <div class="panel-body" style="height: 400px;">
+                <div class="panel-body" style="height: 400px; overflow-x:hidden; overflow-y:scroll">
                     <ul class="media-list" id="chat-content-list">
                         <li class="media" v-for="message in messages">
                             <div v-if="message.from === sock_id">
