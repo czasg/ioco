@@ -7,15 +7,15 @@ REPLACE INTO students (id, class_id, name, gender, score) VALUES (1, 1, 'czaOrz'
 # INSERT INTO .. ON DUPLICATE KEY UPDATE ..
 # if exist, update it
 # if not exist, insert new one line
-INSERT INTO students (id, class_id, name, gender, score) VALUES (1, 1, '小明', 'F', 99) 
+INSERT INTO students (id, class_id, name, gender, score) VALUES (1, 1, '灏忔槑', 'F', 99) 
 ON DUPLICATE KEY UPDATE 
-name='小明', gender='F', score=99;
+name='灏忔槑', gender='F', score=99;
 
 
 # INSERT IGNORE INTO
 # if exist, ignore this command
 # if not exist, insert new one line
-INSERT IGNORE INTO students (id, class_id, name, gender, score) VALUES (1, 1, '小明', 'F', 99);
+INSERT IGNORE INTO students (id, class_id, name, gender, score) VALUES (1, 1, '灏忔槑', 'F', 99);
 
 
 # fast create new table from old table by some conditions
