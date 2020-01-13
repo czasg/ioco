@@ -7,20 +7,20 @@
 #                                                                           
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-Link_of_yunDisk_baidu£ºhttps://pan.baidu.com/s/14-rbRVpm62r0sDjCtlBKBQ 
+Link_of_yunDisk_baiduï¼šhttps://pan.baidu.com/s/14-rbRVpm62r0sDjCtlBKBQ 
 
-Authentication£ºmbgo
+Authenticationï¼šmbgo
 
 
-1¡¢Installing python3.X
-path_to_packages_from_yunDisk£º/apps installation/python3.X/python3.7.3.exe
-detailed_process_refer_to_link£ºhttp://www.runoob.com/python3/python3-install.html
+1ã€Installing python3.X
+path_to_packages_from_yunDiskï¼š/apps installation/python3.X/python3.7.3.exe
+detailed_process_refer_to_linkï¼šhttp://www.runoob.com/python3/python3-install.html
 
-2¡¢Installing pycharm
-path_to_packages_from_yunDisk£º/apps installation/pycharm/pycharm-community.exe
-detailed_process_refer_to_link£ºhttps://jingyan.baidu.com/article/f00622286e92f4fbd2f0c855.html
+2ã€Installing pycharm
+path_to_packages_from_yunDiskï¼š/apps installation/pycharm/pycharm-community.exe
+detailed_process_refer_to_linkï¼šhttps://jingyan.baidu.com/article/f00622286e92f4fbd2f0c855.html
 
-3¡¢installing other packages for python (such as scrapy)
+3ã€installing other packages for python (such as scrapy)
 win + R  ->  cmd -> enter 
 pip install wheel
 pip install lxml
