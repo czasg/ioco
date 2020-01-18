@@ -3,9 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=6cIzNbg5BuMGOGc6TECDSkFoC3Mgvly9"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
     <script src="./public.js"></script>
+    <style>
+        #page1-line-chat {
+            height: 50vh;
+            width: 100%;
+        }
+        #page1-scatter-chat {
+            height: 100vh;
+            width: 100%;
+        }
+        .alert_window {
+            display: none;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            min-width: 300px;
+            max-width: 600px;
+            z-index: 99999;
+            text-align: center;
+            padding: 15px;
+            border-radius: 0.9em;
+        }
+        .fixElement {
+            position: fixed;
+        }
+        .switch-container-close {
+            background-color: #E0E0E0;
+            border-radius: 10px;
+            padding: 0px;
+            margin: 0px;
+            max-width: 50px;
+            margin: auto;
+            transition: all 0.5s ease;
+        }
+        .switch-container-open {
+            background-color: #AED581;
+            border-radius: 10px;
+            padding: 0px;
+            margin: 0px;
+            max-width: 50px;
+            margin: auto;
+            transition: all 0.5s ease;
+        }
+        .boll-close {
+            float: left;
+            height: 20px;
+            width: 20px;
+            background-color: #9E9E9E;
+            display: block;
+            padding: 0px;
+            margin: 0px;
+            border-radius: 10px;
+        }
+        .boll-open {
+            float: right;
+            height: 20px;
+            width: 20px;
+            background-color: #43A047;
+            display: block;
+            padding: 0px;
+            margin: 0px;
+            border-radius: 10px;
+        }
+</style>
 </head>
 <body>
-hello world
+<nav class="navbar navbar-default" id="nav-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-body" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="javascript:void(0)">CrawlerPage</a>
+		</div>
+		<div class="collapse navbar-collapse" id="nav-body">
+			<ul class="nav navbar-nav">
+                <li class="active" role="presentation"><a href="#page-1" aria-controls="page-1" role="tab" data-toggle="tab">数据展示</a></li>
+                <li role="presentation"><a href="#page-2" aria-controls="page-2" role="tab" data-toggle="tab">数据分析</a></li>
+                <li role="presentation"><a href="#page-3" aria-controls="page-3" role="tab" data-toggle="tab">节点管理</a></li>
+                <li role="presentation"><a href="#page-4" aria-controls="page-4" role="tab" data-toggle="tab">调度管理</a></li>
+                <li role="presentation"><a href="#page-5" aria-controls="page-5" role="tab" data-toggle="tab">日志管理</a></li>
+			</ul>
+            <form class="navbar-form navbar-right">
+                <input type="password" class="form-control" placeholder="Token" v-model="token">
+                <button class="btn btn-default" @click="check_token">Submit</button>
+            </form>
+		</div>
+	</div>
+</nav>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="page-1" aria-labelledby="page-1-tab">
+        <div class="container-fluid" id="main-body-1">
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <ul class="list-group">
+                        <li class="list-group-item"><div id="page1-line-chat"></div></li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div id="page1-scatter-chat"></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-2 col-sm-offset-10 fixElement">
+                    <div class="list-group">
+                        <select class="form-control" v-model="query">
+                            <option>python</option>
+                            <option>java</option>
+                        </select>
+                        <button class="btn form-control btn-info" @click="submit_query">submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="page-2" aria-labelledby="page-2-tab">
+        <div class="container-fluid" id="main-body-2">
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">新闻分类</div>
+                        <div class="panel-body">
+                            <p><strong>接口说明：</strong></p>
+                            <p>该新闻分类接口，基于词频统计模型（朴素贝叶斯算法）</p>
+                            <p>以2w+政府公开新闻作为训练数据（特征：`标题`/`分类`）</p>
+                            <p>中文切词采用的Python开源库jieba</p>
+                            <hr>
+                            <p><strong>新闻标题样例：</strong></p>
+                            <p class="lead">国家主席习近平发表二〇二〇年新年贺词</p>
+                            <p class="lead">激发“互联网+政务服务”内外合力</p>
+                            <p class="lead">监督管理局突破传统监管思维定式努力实现食品安全共建共治共享</p>
+                            <p class="lead">市男子冰球队获“工人先锋号”荣誉称号</p>
+                            <hr>
+                            <div class="form-group">
+                                <label for="new_classify">Interface:</label>
+                                <input type="text" class="form-control" id="new_classify" placeholder="please input new title" v-model="title">
+                            </div>
+                            <button type="submit" class="btn btn-default" @click="classify">Submit</button>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item" v-if="news_classify" v-for="data in news_classify">
+                                classify: <strong>[[ data[0] ]]</strong>. from: [[ data[1] ]]
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">租金预测</div>
+                        <div class="panel-body">
+                            <p><strong>接口说明：</strong></p>
+                            <p>该接口，基于回归预测模型</p>
+                            <p>以自如房价为训练数据（特征：`面积`）</p>
+                            <p>针对多城市多城区</p>
+                            <hr>
+                            <p><strong>房价数据样例：</strong></p>
+                            <p class="lead">武汉-武昌-20m**2</p>
+                            <p class="lead">深圳-南山-20m**2</p>
+                            <hr>
+                            <div class="form-group">
+                                <label for="new_classify">Interface:</label>
+                                <select class="form-control" v-model="city">
+                                    <option v-for="area_key_info of all_area_keys_info">[[ area_key_info ]]</option>
+                                </select>
+                                <select class="form-control" v-model="area">
+                                    <option v-for="area_area_info of all_area_info[city]">[[ area_area_info ]]</option>
+                                </select>
+                                <input type="text" class="form-control" id="house_predict" placeholder="area" v-model="house_area">
+                            </div>
+                            <button type="submit" class="btn btn-default" @click="predicts">Submit</button>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item" v-if="house_predicts" v-for="data in house_predicts">
+                                info: [[ data[0] + '-' + data[1] + '-' + data[2] + 'm**2' ]]<br>
+                                租金预测: <strong>[[ '$ ' + parseInt(data[3][0]) ]]</strong><br>
+                                地铁信息：<strong>[[ '最近/平均/最远（单位m）: ' + parseInt(data[3][1]) + ' / ' + parseInt(data[3][2]) + ' / ' + parseInt(data[3][3]) ]]</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-sm-offset-10 fixElement">
+                    <div class="list-group">
+                        <a class="list-group-item text-center" href="javascript:void(0)" @click="init_api">update cur page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="page-3" aria-labelledby="page-3-tab">
+        <div class="container-fluid" id="main-body-3">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="list-group">
+                        <a class="list-group-item" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <span class="badge">[[ nodes.length ]]</span>
+                            Active Nodes
+                        </a>
+                    </div>
+                    <ul class="collapse" id="collapseExample" style="padding: 0;">
+                        <li class="list-group-item list-group-item-success" v-for="node in nodes">[[ node ]]</li>
+                    </ul>
+                </div>
+                <div class="col-sm-8">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">nodeID</th>
+                                <th class="text-center">taskName</th>
+                                <th class="text-center">startTime</th>
+                                <th class="text-center">pid</th>
+                                <th class="text-center">operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="task in node_tasks">
+                                <td class="text-center">[[ task[0] ]]</td>
+                                <td class="text-center">[[ task[1].task ]]</td>
+                                <td class="text-center">[[ task[1].start_time ]]</td>
+                                <td class="text-center">[[ task[1].pid ]]</td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)" @click="close_node(task)"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-2 col-sm-offset-10 fixElement">
+                    <div class="list-group">
+                        <a class="list-group-item text-center" href="javascript:void(0)" @click="init_api">update cur page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="page-4" aria-labelledby="page-4-tab">
+        <div class="container-fluid" id="main-body-4">
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">taskID</th>
+                                <th class="text-center">taskName</th>
+                                <th class="text-center">hour</th>
+                                <th class="text-center">minute</th>
+                                <th class="text-center">second</th>
+                                <th class="text-center">switch</th>
+                                <th class="text-center">operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="task in scheduler_tasks">
+                                <td class="text-center">[[ task['id'] ]]</td>
+                                <td class="text-center">[[ task['name'] ]]</td>
+                                <td class="text-center">[[ task['hour'] || '---' ]]</td>
+                                <td class="text-center">[[ task['minute'] || '---' ]]</td>
+                                <td class="text-center">[[ task['second'] || '---' ]]</td>
+                                <td class="text-center">
+                                    <div class="switch-container-open container-fluid" v-if="task.next_run_time">
+                                        <a href="#"  @click="close_task(task)">
+                                            <div class="boll-open"></div>
+                                        </a>
+                                    </div>
+                                    <div class="switch-container-close container-fluid" v-else>
+                                        <a href="#"  @click="open_task(task)">
+                                            <div class="boll-close"></div>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" @click="edit_task(task)" type="button" data-toggle="modal" data-target="#scheduler_task_template"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                    <a href="#" @click="delete_task(task)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-2 col-sm-offset-10 fixElement">
+                    <div class="list-group">
+                        <a class="list-group-item text-center" href="javascript:void(0)" @click="init_api">update task</a>
+                        <a class="list-group-item text-center" href="javascript:void(0)" @click="add_task"  type="button" data-toggle="modal" data-target="#scheduler_task_template">add task</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="page-5" aria-labelledby="page-5-tab">
+        <div class="container-fluid" id="main-body-5">
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <div class="panel panel-default" v-for="log in logs">
+                        <div class="panel-heading"><strong>[[ log.task ]]</strong></div>
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <td>start_time: <strong>[[ log.start_time ]]</strong></td>
+                                <td>end_time: <strong>[[ log.end_time ]]</strong></td>
+                                <td>cost: <strong>[[ (new Date(log.end_time) - new Date(log.start_time)) / 1000 ]]</strong> s</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><a :href="'/crawler/api/logs/' + log._id" target="_blank">log-file: [[ log.log_path ]]</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-sm-offset-10 fixElement">
+                    <div class="list-group">
+                        <a class="list-group-item" href="javascript:void(0)" @click="init_api">update cur page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/public.js') }}"></script>
+<div class="modal fade" tabindex="-1" role="dialog" id="scheduler_task_template">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Task-Info</h4>
+            </div>
+            <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">taskID</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" v-model="task_info.id" disabled v-if="model==='edit'">
+                        <input type="email" class="form-control fixed" v-model="task_info.id" v-else-if="model==='add'">
+                    </div>
+                </div>
+                <div class="form-group" v-if="model==='add'">
+                    <label class="col-sm-2 control-label">taskName</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="task_info.name">
+                    </div>
+                </div>
+                <div class="form-group" v-if="model==='add'">
+                    <label class="col-sm-2 control-label">taskFunc</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" v-model="task_info.func">
+                            <option>async_scheduler:async_scheduler</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" v-if="model==='add'">
+                    <label class="col-sm-2 control-label">spider</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" v-model="task_info.task_name">
+                            <option>ZiruHousePrice</option>
+                            <option>LagouJob</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">hour</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control"  v-model="task_info.hour">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">minute</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="task_info.minute">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">second</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="task_info.second">
+                    </div>
+                </div>
+                <div class="form-group" v-if="model==='add'">
+                    <label class="col-sm-2 control-label">other</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control fixed">
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button @click="click_button" type="button" class="btn btn-info" data-dismiss="modal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 </html>
