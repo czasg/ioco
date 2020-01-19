@@ -400,6 +400,7 @@ $(function(){
                     api_data_for_news_classify({title: new_title}).then((api_result) => {
                         this.news_classify.push([api_result.data.classify, new_title]);
                         this.news_classify_running = false;
+                        success_prompt("classify successful~", 500);
                     }).catch(() => this.news_classify_running = false);
                 } else {
                     danger_prompt("Please input an valid title!", 1000);
@@ -420,6 +421,7 @@ $(function(){
                     }).then((api_result) => {
                         this.house_predicts.push([city, area, house_area, api_result.data]);
                         this.house_predict_running = false;
+                        success_prompt("predicts successful~", 500);
                     }).catch(() => this.news_classify_running = false);
                 } else {
                     danger_prompt("Please input an valid house-area!", 1000);

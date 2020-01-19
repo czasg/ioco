@@ -17,7 +17,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
     <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=6cIzNbg5BuMGOGc6TECDSkFoC3Mgvly9"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
-    <script src="./public.js"></script>
+    <script type="text/javascript" src="./public.js"></script>
     <style>
         #page1-line-chat {
             height: 50vh;
@@ -171,9 +171,9 @@
                         <div class="panel-heading">租金预测</div>
                         <div class="panel-body">
                             <p><strong>接口说明：</strong></p>
-                            <p>该接口，基于回归预测模型</p>
-                            <p>以自如房价为训练数据（特征：`面积`）</p>
-                            <p>针对多城市多城区</p>
+                            <p>该租金预测接口，基于回归预测模型</p>
+                            <p>爬取各城市房价数据作为训练样本（特征：`面积`/`租金`）</p>
+                            <p></p>
                             <hr>
                             <p><strong>房价数据样例：</strong></p>
                             <p class="lead">武汉-武昌-20m**2</p>
