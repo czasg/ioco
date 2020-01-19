@@ -73,7 +73,7 @@ $(function(){
                         location.assign(location.pathname);
                     }).catch(() => {
                         danger_prompt('Invalid Token!', 1000)
-                    })}
+                    })
                 } else {
                     danger_prompt('Empty Token!', 1000)
                 }
