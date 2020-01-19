@@ -37,7 +37,7 @@ $(function(){
         };
     // api func
     var
-        check_token_func = (token) => axios.get(`/?token=${token}`),  // for top nav bar
+        check_token_func = (token) => axios.get(`https://www.czasg.xyz:8867/crawler?token=${token}`),  // for top nav bar
 
         api_data_for_ziru = () => axios.get('https://www.czasg.xyz:8867/crawler/api/ziru/data'),  // for page-1
         api_data_for_lagou = (data) => axios.get(`https://www.czasg.xyz:8867/crawler/api/lagou/data?query=${data}`),  // for page-1
@@ -549,7 +549,11 @@ $(function(){
                     task_name: this.task_info.task_name
                 };
                 delete this.task_info.task_name;
-                api_data_for_add_task(this.task_info).then(() => page_4.init_api())
+                api_data_for_add_task(this.task_info).then(() => {
+                    page_4.init_api();
+                    success_prompt("successful", 500);
+                })
+                }
             },
             clear_task: function() {
                 this.model = '';
