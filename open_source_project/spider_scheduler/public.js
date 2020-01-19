@@ -37,7 +37,7 @@ $(function(){
         };
     // api func
     var
-        check_token_func = (token) => axios.get(`https://www.czasg.xyz:8867/crawler?token=${token}`),  // for top nav bar
+        check_token_func = (token) => axios.get(`https://www.czasg.xyz:8867?token=${token}`),  // for top nav bar
 
         api_data_for_ziru = () => axios.get('https://www.czasg.xyz:8867/crawler/api/ziru/data'),  // for page-1
         api_data_for_lagou = (data) => axios.get(`https://www.czasg.xyz:8867/crawler/api/lagou/data?query=${data}`),  // for page-1
