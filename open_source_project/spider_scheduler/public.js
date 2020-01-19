@@ -553,7 +553,6 @@ $(function(){
                     page_4.init_api();
                     success_prompt("successful", 500);
                 })
-                }
             },
             clear_task: function() {
                 this.model = '';
