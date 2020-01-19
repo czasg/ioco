@@ -56,7 +56,7 @@ $(function(){
         api_data_for_patch_task = (taskID, data) => axios.patch(`https://www.czasg.xyz:8867/scheduler/jobs/${taskID}`, data),  // for page-4
         api_data_for_deleting_task = (taskID) => axios.delete(`https://www.czasg.xyz:8867/scheduler/jobs/${taskID}`);  // for page-4
 
-        api_data_for_logs = () => axios.get('https://www.czasg.xyz:8867/crawler/api/logs'),  // for page-5 logs
+        api_data_for_logs = () => axios.get('https://www.czasg.xyz:8867/crawler/api/logs/manager'),  // for page-5 logs
     // nar bar
     new Vue({
         el: '#nav-top',
