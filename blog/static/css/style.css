@@ -327,3 +327,6 @@ body{
         height: 0;
     }
 }
+.footer > .navbar{
+    margin-bottom: 0;
+}

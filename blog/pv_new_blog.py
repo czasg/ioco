@@ -122,7 +122,7 @@ class GatherManager:
                 "blog_author": self.author,
                 "blog_created": to_path(*blog_info[:3], sep="-"),
                 "blog_content": "",
-                "blog_url": f"./{to_path(*blog_info, sep='/')}",
+                "blog_url": f"./{to_path(*blog_info, sep='/')}".replace(".md", ""),
             }
             with open(blog, 'r', encoding='utf-8') as f:
                 text = f.readline()
