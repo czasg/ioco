@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>blog</title>
+    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="container-fluid">
+        <div class="row blog-search">
+            <div class="search-box col-sm-offset-3 col-sm-9 col-xs-offset-2 col-xs-8" :class="{searching:search_flag}">
+                <input type="text" v-model="search_content" ref="search_box">
+                <span data-placeholder="搜索-暂未提供功能"></span>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 hidden-xs">
+                <div class="user-box">
+                    <div class="user-img">
+                        <img src="./static/img/cza.jpg" alt="">
+                        <div class="user-img-label">COOL</div>
+                        <div class="user-img-text">Hello!</div>
+                        <div class="user-img-icons">
+                            <a href="https://github.com/CzaOrz" target="_blank"><i class="fa fa-github"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="user-title">关于作者</h3>
+                    <div class="user-history">
+                        <div class="user-info-box">
+                            <h4>2014.09-2018.06</h4>
+                            <div>武汉科技大学 / 本科</div>
+                        </div>
+                        <div class="user-info-box">
+                            <h4>2018.04-2019.03</h4>
+                            <div>武汉中软国际科技服务有限公司 / 驱动开发</div>
+                        </div>
+                        <div class="user-info-box">
+                            <h4>2019.03-至今</h4>
+                            <div>武汉数博科技责任有限公司 / 爬虫开发</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-box">
+                    <div class="menu-item" id="menu-item-1">
+                        <div class="menu-btn"><i class="fa fa-user" aria-hidden="true"></i>Author</div>
+                        <div class="son-menu">
+                            <div class="son-menu-item">Name: 陈子昂</div>
+                            <div class="son-menu-item">Birth: 1995-09-17</div>
+                        </div>
+                    </div>
+                    <div class="menu-item" id="menu-item-2">
+                        <div class="menu-btn"><i class="fa fa-envelope" aria-hidden="true"></i>Email</div>
+                        <div class="son-menu">
+                            <div class="son-menu-item">972542655@qq.com</div>
+                            <div class="son-menu-item">chenziangsg@163.com</div>
+                        </div>
+                    </div>
+                    <div class="menu-item" id="menu-item-3">
+                        <div class="menu-btn"><i class="fa fa-cog" aria-hidden="true"></i>Settings</div>
+                        <div class="son-menu">
+                            <a class="son-menu-item" href="#">ColorBoard</a>
+                            <a class="son-menu-item" href="#">RequestHeader</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 col-xs-12" id="blog">
+                <div class="blog-row" v-for="blogs in all_blogs">
+                        <div class="blog-box" v-for="blog in blogs" :key="blog.blog_id">
+                            <div class="blog-front">
+                                <img class="blog-img" src="" :src="blog.blog_img" alt="">
+                                <h3 class="blog-title">{{blog.blog_title}}</h3>
+                                <div class="blog-abstract">{{ blog.blog_abstract }}</div>
+                                <div class="blog-footer">
+                                    <span class="badge">{{ blog.blog_author }}</span>
+                                    <span class="badge">{{ blog.blog_created }}</span>
+                                </div>
+                            </div>
+                            <div class="blog-back">
+                                <div class="blog-content">
+                                    {{ blog.blog_content }}
+                                </div>
+                                <a class="blog-detail" :href="blog.blog_url" target="_blank"><span class="badge">跳转详情</span></a>
+                            </div>
+                        </div>
+                    </div>
+                <div class="loading-box" v-show="loading_flag">
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p></p>
+<p></p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-footer">
+            welcome to here
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="./static/js/index.js"></script>
+</body>
+</html>
