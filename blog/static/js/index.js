@@ -30,6 +30,7 @@ var app = new Vue({
             this.blog_obj = blog_obj.data
             this.all_blogs = this.blog_obj.blogs
             this.$nextTick(() => {
+                this.loading_flag = false
                 this.scroll_watching_animation()
             })
         },
