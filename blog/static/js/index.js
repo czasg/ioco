@@ -23,6 +23,13 @@ var app = new Vue({
         loading_flag: true,
     },
     methods: {
+        searching: function(blogs, searching_key){
+            return blogs.filter(blog => {
+                if (blog.blog_title.includes(searching_key)){
+                    return true
+                }
+            })
+        },
         async loading_settings(){
             let settings = await axios.get('./settings.json')
             this.settings = settings.data

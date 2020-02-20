@@ -68,11 +68,15 @@ body{
     position: relative;
     border: 1px solid #000;
 }
+.blog-box:hover{
+    box-shadow: 0 0 30px #fff;
+}
 .blog-box:hover > .blog-front{
     transform: perspective(600px) rotateY(180deg);
 }
 .blog-box:hover > .blog-back{
     transform: perspective(600px) rotateY(360deg);
+    background-color: #f1f1f1;
 }
 .blog-front,.blog-back{
     position: absolute;

@@ -55,8 +55,8 @@ class BlogManager:
         self.pather = Path()
         self.bloger = Blog()
 
-    def search_blog(self):
-        self.bloger.blogs = find_file_by_name(self.bloger.prefix, matching='startswith')
+    def search_blog(self, path=None):
+        self.bloger.blogs = find_file_by_name(self.bloger.prefix, path=(path or self.pather.path), matching='startswith')
 
     def init_blog(self):
         self.pather.create_dir()
@@ -91,7 +91,7 @@ class GatherManager:
         self.handler.pather.create_dir(to_path(self.handler.pather.cur_path, self.gather_dir))
 
     def search_blog(self):
-        self.handler.search_blog()
+        self.handler.search_blog('.')
         self.blogs = self.handler.bloger.blogs[:]
         settings = load_json(self.settings)
         settings['blog_total'] = len(self.blogs)
@@ -152,6 +152,6 @@ class GatherManager:
 
 
 if __name__ == '__main__':
-    # BlogManager().create()
+    BlogManager().create()
 
-    GatherManager().run()
+    # GatherManager().run()
