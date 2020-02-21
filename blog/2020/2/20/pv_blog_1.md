@@ -7,7 +7,7 @@ http://bbs.jooyoo.net/attachment/Mon_0905/24_65548_2835f8eaa933ff6.jpg
 
 ## 个人博客搭建（一）
 
-> 基于Python+Vue搭建搭建的无后端个人博客
+> 基于Python+Vue搭建搭建的无后端个人博客 - 原理讲解
 
 一般的博客系统都是由前后端组成，当然也是有特殊情况，如使用WordPress工具搭建的无后端框架。
 
