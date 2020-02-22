@@ -152,6 +152,6 @@ class GatherManager:
 
 
 if __name__ == '__main__':
-    BlogManager().create()
+    # BlogManager().create()
 
-    # GatherManager().run()
+    GatherManager().run()
