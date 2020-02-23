@@ -393,3 +393,6 @@ body{
     font-size: 14px;
     margin: 5px 3px;
 }
+#blog-iframe{
+    border-radius: 10px;
+}
