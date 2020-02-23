@@ -1,3 +1,11 @@
+function setIframeHeight(iframe) {
+    if (iframe) {
+        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+        if (iframeWin.document.body) {
+            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+        }
+    }
+};
 var app = new Vue({
     el: '#app',
     created(){
@@ -21,6 +29,8 @@ var app = new Vue({
         all_blogs: [],
         blog_obj: {},
         loading_flag: true,
+        blog_page: false,
+        blog_url: '',
     },
     methods: {
         searching: function(blogs, searching_key){
@@ -78,6 +88,24 @@ var app = new Vue({
                     v.style.top = '100px'
 	  		    }
 	  		})
+        },
+        blog_detail: function(url){
+            this.blog_url = url
+            this.blog_page = true
+            this.loading_flag = true
+            this.$nextTick(() => {
+                iframe = document.getElementById('blog-iframe')
+                iframe.onload = () => {
+                    this.loading_flag = false
+                    setIframeHeight(iframe)
+                }
+            })
+        },
+        show_all_blog:function(){
+            this.blog_page = false;
+            this.$nextTick(()=>{
+                this.scroll_watching_animation()
+            })
         }
     }
 })
