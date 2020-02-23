@@ -1,8 +1,10 @@
 <!--
 http://attach.bbs.miui.com/forum/201305/24/123936nq3qmi7a3qjx2o3i.jpg
+数据库
 数据库事务
 数据库事务的基本概念、隔离级别、及可能造成的问题。包括四种隔离级别ReadUncommit、ReadCommit、RepeatableRead、Serializable
 从需求上讲即某些业务上的要求，需要某一系列操作全部执行，如果其中有一个操作失败，则全部失败。  从概念上讲。即某些SQL语句，要么全部执行成功，要么全部执行。* A（Atomic）原子性：即所有的操作如一个原子，不可分割，要么全部执行，要么全不执行
+database
 -->
 
 ## 数据库事务

@@ -51,7 +51,8 @@ body{
 .blog-row{
     display: flex;
     position: relative;
-    justify-content: space-between;
+    justify-content: space-around;
+    flex-wrap: wrap;
     margin-bottom: 30px;
     opacity: 0;
     top: 100px;
@@ -67,6 +68,18 @@ body{
     border-radius: 5px;
     position: relative;
     border: 1px solid #000;
+}
+@media screen and (max-width: 1200px){
+    .blog-box{
+        width: 50%;
+        margin-bottom: 5px;
+    }
+}
+@media screen and (max-width: 600px){
+    .blog-box{
+        width: 100%;
+        margin-bottom: 5px;
+    }
 }
 .blog-box:hover{
     box-shadow: 0 0 30px #fff;

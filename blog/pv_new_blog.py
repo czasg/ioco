@@ -4,6 +4,11 @@ from minitools import (
     valid_list, load_json, save_json
 )
 from itertools import count
+from datetime import datetime
+from collections import defaultdict
+
+create_time = lambda file: datetime.fromtimestamp(os.path.getctime(file))
+amend_time = lambda file: datetime.fromtimestamp(os.path.getmtime(file))
 
 
 class Path:
@@ -25,6 +30,7 @@ class Blog:
     default_content = """
 <!--
 ./static/img/dd.jpg
+未定义
 default title
 default abstract
 default blog content, please don't use some markdown grammar in first paragraph.
@@ -72,8 +78,11 @@ class BlogManager:
 class GatherManager:
     def __init__(self):
         self.handler = BlogManager()
-        self.gather_dir = "blog"
+        self.gather_blog_dir = "blog"
+        self.gather_label_dir = "label"
         self.settings = "settings.json"
+        self.labels = defaultdict(list)
+        self.author = "CzaOrz"
         self.__init()
         self.init_settings()
 
@@ -81,74 +90,105 @@ class GatherManager:
         self.count = count().__next__
         self.limit = 6
         self.blogs = []
+        self.blog_total = 0
         self.blog_id = 1
-        self.author = "CzaOrz"
 
     def init_settings(self):
         self.settings = to_path(self.handler.pather.cur_path, self.settings)
         if not os.path.exists(self.settings):
-            self.handler.pather.create_file(self.settings, '{"blog_url": "", "blog_total": 0}')
-        self.handler.pather.create_dir(to_path(self.handler.pather.cur_path, self.gather_dir))
+            self.handler.pather.create_file(
+                self.settings,
+                '{"blog_url": "./blog/blog1.json", "blog_total": 0, "blog_total_page": 0, "blog_last_url": "", "labels": []}')
+        self.handler.pather.create_dir(to_path(self.handler.pather.cur_path, self.gather_blog_dir))
+        self.handler.pather.create_dir(to_path(self.handler.pather.cur_path, self.gather_label_dir))
 
     def search_blog(self):
         self.handler.search_blog('.')
         self.blogs = self.handler.bloger.blogs[:]
-        settings = load_json(self.settings)
-        settings['blog_total'] = len(self.blogs)
-        save_json(self.settings, settings)
+        self.blog_total = len(self.blogs)
 
-    def json_file(self, file_id=None):
-        return f"./{self.gather_dir}/blog{file_id or self.blog_id}.json"
+    def json_file(self, file_id=None, label=None):
+        if label:
+            return f"./{self.gather_label_dir}/{label}/label{file_id or self.blog_id}.json"
+        return f"./{self.gather_blog_dir}/blog{file_id or self.blog_id}.json"
 
-    def gather(self):
+    def gather(self, save_direct=None):
         if len(self.blogs) > self.limit:
             self.blogs, blogs = self.blogs[:-self.limit], self.blogs[-self.limit:]
-            self._gather(blogs, self.json_file(self.blog_id + 1))
-            self.gather()
+            self._gather(blogs, self.json_file(self.blog_id + 1), save_direct=save_direct)
+            self.gather(save_direct)
         else:
-            self._gather()
+            self._gather(save_direct=save_direct)
 
-    def _gather(self, blogs=None, next_url=""):
+    def _gather(self, blogs=None, next_url="", save_direct=None):
         results = []
         result = []
         row = 1
         for blog in (blogs or self.blogs)[::-1]:
-            blog_info = valid_list(blog.strip(".").split(os.sep))
-            template = {
-                "blog_id": self.count(),
-                "blog_img": "",
-                "blog_title": "",
-                "blog_abstract": "",
-                "blog_author": self.author,
-                "blog_created": to_path(*blog_info[:3], sep="-"),
-                "blog_content": "",
-                "blog_url": f"./{to_path(*blog_info, sep='/')}".replace(".md", ""),
-            }
-            with open(blog, 'r', encoding='utf-8') as f:
-                text = f.readline()
-                if text.startswith("<!--"):
-                    template['blog_img'] = f.readline().strip()
-                    template['blog_title'] = f.readline().strip()
-                    template['blog_abstract'] = f.readline().strip()
-                    template['blog_content'] = f.readline().strip()
-                    result.append(template)
-                else:
-                    raise Exception('Invalid blog-content, it should startswith <!--xxx-->')
+            if not save_direct:
+                blog_info = valid_list(blog.strip(".").split(os.sep))
+                template = {
+                    "blog_id": self.count(),
+                    "blog_img": "",
+                    "blog_title": "",
+                    "blog_abstract": "",
+                    "blog_author": self.author,
+                    "blog_created": timekiller.datetimeStr(create_time(blog)),
+                    "blog_amend": timekiller.datetimeStr(amend_time(blog)),
+                    "blog_content": "",
+                    "blog_url": f"./{to_path(*blog_info, sep='/')}".replace(".md", ""),
+                }
+                with open(blog, 'r', encoding='utf-8') as f:
+                    text = f.readline()
+                    if text.startswith("<!--"):
+                        template['blog_img'] = f.readline().strip()
+                        labels = f.readline().strip().split('|')
+                        template['blog_title'] = f.readline().strip()
+                        template['blog_abstract'] = f.readline().strip()
+                        template['blog_content'] = f.readline().strip()
+                        result.append(template)
+                        for label in labels:
+                            self.labels[label].append(template)
+                    else:
+                        raise Exception('Invalid blog-content, it should startswith <!--xxx-->')
+            else:
+                result.append(blog)
             if row % 3 == 0:
                 results.append(result)
                 result = []
             row += 1
         if result:
             results.append(result)
-        save_json(self.json_file(), {
+        save_json(self.json_file(label=save_direct), {
             "blogs": results,
             "next_url": next_url
         })
         self.blog_id += 1
 
+    def save_settings(self):
+        settings = load_json(self.settings)
+        settings['blog_total'] = self.blog_total
+        settings['blog_total_page'] = self.blog_id - 1
+        settings['blog_last_url'] = self.json_file()
+        settings['labels'] = []
+        for name, templates in self.labels.items():
+            settings['labels'].append({
+                'name': name,
+                'url': f'./{self.gather_label_dir}/{name}/label1.json',
+                'total': len(templates),
+                'total_page': len(templates) // 6 + 1,
+            })
+            self.handler.pather.create_dir(to_path(self.gather_label_dir, name))
+            self.__init()
+            self.blogs[:] = templates
+            self.gather(name)
+        save_json(self.settings, settings)
+
+
     def run(self):
         self.search_blog()
         self.gather()
+        self.save_settings()
 
 
 if __name__ == '__main__':
