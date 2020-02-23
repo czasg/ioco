@@ -5,7 +5,7 @@
 }
 body{
     min-height: 100vh;
-    background-image: linear-gradient(135deg, #81D4FA, #FFF9C4);
+    background-image: linear-gradient(135deg, #81D4FA, #CE93D8);
     background-attachment: fixed;
 }
 .blog-search > .col-xs-8{

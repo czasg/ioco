@@ -52,6 +52,7 @@ var app = new Vue({
             })
         },
         async loading_blog(){
+            if (this.blog_page) return
             this.loading_flag = true
             if (this.blog_obj.next_url && this.all_blogs.length < this.settings.blog_total){
                 let blog_obj = await axios.get(this.blog_obj.next_url)
