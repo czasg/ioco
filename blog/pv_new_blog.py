@@ -8,8 +8,8 @@ from itertools import count
 
 class Path:
 
-    def __init__(self):
-        self.cur_path = get_current_path(__file__)
+    def __init__(self, path=None):
+        self.cur_path = get_current_path(path or __file__)
         self.today = timekiller.split()[:3]
         self.path = to_path(self.cur_path, *self.today, forceStr=True)
         self.blog_path = ''
@@ -51,8 +51,8 @@ you also don't want to show this in web-html.
 
 
 class BlogManager:
-    def __init__(self):
-        self.pather = Path()
+    def __init__(self, path=None):
+        self.pather = Path(path)
         self.bloger = Blog()
 
     def search_blog(self, path=None):
