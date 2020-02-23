@@ -1,5 +1,5 @@
 <!--
-http://hbimg.b0.upaiyun.com/3d7f6e9b404a35a87a9e0a147c8321033f0206f53188a-PGCDV7_fw658
+https://ae01.alicdn.com/kf/Hbc64650c7cb14bedaf0ba3d40b87e26aQ.png
 Python
 Python内存管理
 其中Python内存管理由私有堆空间管理，所有的Python对象和数据结构都存储在私有堆中，只有解析器才有权限访问。  

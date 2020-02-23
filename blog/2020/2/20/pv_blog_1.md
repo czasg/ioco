@@ -1,5 +1,5 @@
 <!--
-http://bbs.jooyoo.net/attachment/Mon_0905/24_65548_2835f8eaa933ff6.jpg
+https://ae01.alicdn.com/kf/He75017a01c204550ace3b3d5293d4075y.png
 框架设计
 个人博客搭建（一）
 基于Python+Vue搭建搭建的无后端个人博客 - 原理讲解

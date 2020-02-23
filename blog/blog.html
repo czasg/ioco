@@ -12,6 +12,7 @@
     <script type="text/javascript" src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/animejs/3.1.0/anime.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -76,6 +77,33 @@
                             <a class="son-menu-item" href="#">RequestHeader</a>
                         </div>
                     </div>
+                </div>
+                <div class="count-box">
+                    <div class="ui-loop" id="blog_count">
+                        <h3>Blog</h3>
+                        <div>
+                            <svg viewBox="0 0 54 54">
+                                <path class="path-loop-bg" d="M27,2A25,25,0,1,1,2,27,25,25,0,0,1,27,2"></path>
+                                <path class="path-loop" d="M27,2A25,25,0,1,1,2,27,25,25,0,0,1,27,2" ></path>
+                            </svg>
+                            <span id="blog_count_svg"></span>
+                        </div>
+                    </div>
+                     <div class="ui-loop" id="blog_page_count">
+                        <h3>Page</h3>
+                        <div>
+                            <svg viewBox="0 0 54 54">
+                                <path class="path-loop-bg" d="M27,2A25,25,0,1,1,2,27,25,25,0,0,1,27,2"></path>
+                                <path class="path-loop" d="M27,2A25,25,0,1,1,2,27,25,25,0,0,1,27,2" ></path>
+                            </svg>
+                            <span id="blog_page_count_svg"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="label-box">
+                    <span class="badge" v-for="label in settings.labels">
+                        {{label.name + ' ' + label.total}}
+                    </span>
                 </div>
             </div>
             <div class="col-sm-9 col-xs-12" id="blog">

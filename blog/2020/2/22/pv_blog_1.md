@@ -1,5 +1,5 @@
 <!--
-http://img0.imgtn.bdimg.com/it/u=2220291002,3268861550&fm=15&gp=0.jpg
+https://ae01.alicdn.com/kf/H7a9157260a3748e89be24de8399da4cdK.png
 数据结构
 二叉树遍历
 包含三种遍历方式：前序遍历、中序遍历、后续遍历

@@ -1,5 +1,5 @@
 <!--
-http://attach.bbs.miui.com/forum/201305/24/123936nq3qmi7a3qjx2o3i.jpg
+https://ae01.alicdn.com/kf/H096aac2dd76541a4a00a405e6ed8d67eN.png
 数据库
 数据库事务
 数据库事务的基本概念、隔离级别、及可能造成的问题。包括四种隔离级别ReadUncommit、ReadCommit、RepeatableRead、Serializable
