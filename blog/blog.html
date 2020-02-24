@@ -114,6 +114,9 @@
                     <div class="blog-row" v-for="blogs in all_blogs">
                             <div class="blog-box" v-for="blog in searching(blogs, search_content)" :key="blog.blog_id">
                                 <div class="blog-front">
+                                    <div class="blog-label">
+                                        <span v-for="label in blog.labels">{{label}}</span>
+                                    </div>
                                     <img class="blog-img" src="" :src="blog.blog_img" alt="">
                                     <h3 class="blog-title">{{blog.blog_title}}</h3>
                                     <div class="blog-abstract">{{ blog.blog_abstract }}</div>
