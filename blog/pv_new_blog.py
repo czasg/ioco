@@ -81,6 +81,7 @@ class GatherManager:
         self.gather_blog_dir = "blog"
         self.gather_label_dir = "label"
         self.settings = "settings.json"
+        self.limit = 6
         self.labels = defaultdict(list)
         self.author = "CzaOrz"
         self.__init()
@@ -88,7 +89,6 @@ class GatherManager:
 
     def __init(self):
         self.count = count().__next__
-        self.limit = 6
         self.blogs = []
         self.blog_total = 0
         self.blog_id = 1
@@ -112,20 +112,20 @@ class GatherManager:
             return f"./{self.gather_label_dir}/{label}/label{file_id or self.blog_id}.json"
         return f"./{self.gather_blog_dir}/blog{file_id or self.blog_id}.json"
 
-    def gather(self, save_direct=None):
+    def gather(self, label=None):
         if len(self.blogs) > self.limit:
             self.blogs, blogs = self.blogs[:-self.limit], self.blogs[-self.limit:]
-            self._gather(blogs, self.json_file(self.blog_id + 1), save_direct=save_direct)
-            self.gather(save_direct)
+            self._gather(blogs, self.json_file(self.blog_id + 1), label=label)
+            self.gather(label)
         else:
-            self._gather(save_direct=save_direct)
+            self._gather(label=label)
 
-    def _gather(self, blogs=None, next_url="", save_direct=None):
+    def _gather(self, blogs=None, next_url="", label=None):
         results = []
         result = []
         row = 1
         for blog in (blogs or self.blogs)[::-1]:
-            if not save_direct:
+            if not label:
                 blog_info = valid_list(blog.strip(".").split(os.sep))
                 template = {
                     "blog_id": self.count(),
@@ -142,13 +142,13 @@ class GatherManager:
                     text = f.readline()
                     if text.startswith("<!--"):
                         template['blog_img'] = f.readline().strip()
-                        labels = f.readline().strip().split('|')
+                        template['labels'] = f.readline().strip().split('|')
                         template['blog_title'] = f.readline().strip()
                         template['blog_abstract'] = f.readline().strip()
                         template['blog_content'] = f.readline().strip()
                         result.append(template)
-                        for label in labels:
-                            self.labels[label].append(template)
+                        for _label in template['labels']:
+                            self.labels[_label].append(template)
                     else:
                         raise Exception('Invalid blog-content, it should startswith <!--xxx-->')
             else:
@@ -159,7 +159,7 @@ class GatherManager:
             row += 1
         if result:
             results.append(result)
-        save_json(self.json_file(label=save_direct), {
+        save_json(self.json_file(label=label), {
             "blogs": results,
             "next_url": next_url
         })
