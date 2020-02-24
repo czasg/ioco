@@ -1,3 +1,13 @@
+// 设置iframe高度自适应
+function setIframeHeight(iframe) {
+    if (iframe) {
+        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+        if (iframeWin.document.body) {
+            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+        }
+    }
+};
+// 日志模块
 class Logger{
     log(obj){
         console.log(obj)
@@ -8,15 +18,8 @@ class Logger{
         })
     }
 }
-var logger = new Logger()
-function setIframeHeight(iframe) {
-    if (iframe) {
-        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-        if (iframeWin.document.body) {
-            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
-        }
-    }
-};
+var logger = new Logger();
+// Vue实例
 var app = new Vue({
     el: '#app',
     created(){
@@ -28,26 +31,29 @@ var app = new Vue({
     mounted(){
         this.$refs.search_box.onfocus = () => { this.search_flag = true; }
         this.$refs.search_box.onblur = () => {
-            if (!this.search_content){
+            if (!this.input_content){
                 this.search_flag = false;
             }
         }
     },
     data:{
-        settings: {},
-        search_flag: false,
-        search_content: '',
-        all_blogs: [],
-        blog_obj: {},
-        loading_flag: true,
-        blog_page: false,
-        blog_url: '',
+        settings: {},  // 全局配置数据
         page_count: 1,
-        label_blogs: [],
+        blog_url: '',  // 绑定详情页
+
+        search_flag: false,  // 搜索过滤
+        loading_flag: true,  // 加载动画
+        blog_detail: false,  // 博客详情页 true => iframe
+        label_flag: false,  // 是否由标签加载数据
+
+        input_content: '',  // 绑定搜索框文本内容
+        index_blog: [],
+        blog_obj: {},
+
+        label_blog: [],
         label_obj: {},
         label_blog_total: 0,
         label_page_total: 0,
-        label_flag: false,
     },
     methods: {
         searching: function(blogs, searching_key){
@@ -62,49 +68,35 @@ var app = new Vue({
             this.settings = settings.data
             let blog_obj = await axios.get(this.settings.blog_url)
             this.blog_obj = blog_obj.data
-            this.all_blogs = this.blog_obj.blogs
+            this.index_blog = this.blog_obj.blogs
             this.anime_func_all()
-            this.$nextTick(() => {
-                this.loading_flag = false
-                this.scroll_watching_animation()
-            })
+            this.loading_flag = false
+            this.show_all_blog()
         },
         async loading_blog(){
-            if (this.blog_page) return
+            if (this.blog_detail) return
             if (this.loading_flag) return
             this.loading_flag = true
-
             if (this.label_flag){
-                var blog_obj = this.label_obj,
-                    all_blogs = this.label_blogs,
-                    blog_total = blog_obj.total;
+                this._loading_blog(this.label_obj, this.label_blog, this.label_obj)
             } else {
-                var blog_obj = this.blog_obj,
-                    all_blogs = this.all_blogs,
-                    blog_total = this.settings.blog_total;
+                this._loading_blog(this.blog_obj, this.index_blog, this.settings.blog_total)
             }
-
-            if (blog_obj.next_url && all_blogs.length < blog_total){
+            this.loading_flag = false
+        },
+        async _loading_blog(blog_obj, all_blog, blog_total){
+            if (blog_obj.next_url && all_blog.length < blog_total){
                 let blog_obj_temp = await axios.get(blog_obj.next_url)
-
                 if (this.label_flag) {
                     this.label_obj = blog_obj_temp.data
-                    this.label_blogs = this.label_blogs.concat(this.label_obj.blogs)
+                    this.label_blog = this.label_blog.concat(this.label_obj.blogs)
                 }else{
                     this.blog_obj = blog_obj_temp.data
-                    this.all_blogs = this.all_blogs.concat(this.blog_obj.blogs)
+                    this.index_blog = this.index_blog.concat(this.blog_obj.blogs)
                 }
                 this.page_count += 1
                 this.anime_func_all()
             }
-//            if (this.blog_obj.next_url && this.all_blogs.length < this.settings.blog_total){
-//                let blog_obj = await axios.get(this.blog_obj.next_url)
-//                this.blog_obj = blog_obj.data
-//                this.all_blogs = this.all_blogs.concat(this.blog_obj.blogs)
-//                this.page_count += 1
-//                this.anime_func_all()
-//            }
-            this.loading_flag = false
         },
         scroll_watching: function(){
             this.scroll_watching_loading()
@@ -135,9 +127,9 @@ var app = new Vue({
 	  		    }
 	  		})
         },
-        blog_detail: function(url){
+        blog_detail_func: function(url){
             this.blog_url = url
-            this.blog_page = true
+            this.blog_detail = true
             this.loading_flag = true
             this.$nextTick(() => {
                 iframe = document.getElementById('blog-iframe')
@@ -148,33 +140,23 @@ var app = new Vue({
             })
         },
         show_all_blog:function(){
-            this.blog_page = false;
-            this.$nextTick(()=>{
-                this.scroll_watching_animation()
-            })
-        },
-        show_labels_blog: function(){
-            this.label_flag = false;
-            this.blog_page = false;
             this.$nextTick(()=>{
                 this.scroll_watching_animation()
             })
         },
         anime_func_all: function(){
             if (this.label_flag) {
-                blogs = this.label_blogs
-                blogs_total = this.label_blog_total
-                pages_total = this.label_page_total
+                this._anime_func_all(this.label_blog, this.label_blog_total, this.label_page_total)
             } else {
-                blogs = this.all_blogs
-                blogs_total = this.settings.blog_total
-                pages_total = this.settings.blog_total_page
+                this._anime_func_all(this.index_blog, this.settings.blog_total, this.settings.blog_total_page)
             }
+        },
+        _anime_func_all(all_blog, blog_total, pages_total){
             var num = 0
-            blogs.forEach((data) => {
+            all_blog.forEach((data) => {
                 num += data.length
             })
-            this.anime_func('#blog_count_svg', '#blog_count', num, blogs_total)
+            this.anime_func('#blog_count_svg', '#blog_count', num, blog_total)
             this.anime_func('#blog_page_count_svg', '#blog_page_count', this.page_count, pages_total)
         },
         anime_func: function(h3id, blogId, num, all_num){
@@ -205,10 +187,10 @@ var app = new Vue({
         async loading_label(label){
             this.loading_flag = true
             this.label_flag = true
-//            this.blog_page = true
+            this.blog_detail = false
             let blog_obj = await axios.get(label.url)
             this.label_obj = blog_obj.data
-            this.label_blogs = this.label_obj.blogs
+            this.label_blog = this.label_obj.blogs
             this.page_count = 1
             this.label_blog_total = label.total
             this.label_page_total = label.total_page
@@ -217,9 +199,9 @@ var app = new Vue({
         },
         choose_label_blog: function(){
             if (this.label_flag){
-                return this.label_blogs
+                return this.label_blog
             } else {
-                return this.all_blogs
+                return this.index_blog
             }
         }
     }

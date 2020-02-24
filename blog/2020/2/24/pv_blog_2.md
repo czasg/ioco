@@ -12,7 +12,7 @@ Scrapy是基于twisted搭建的异步分布式框架，由engine、schedule、do
 
 ### cmdline
 #### 1、获取参数
-从终端获取输入指令，如: ```scrapy crawl spider_name```
+从终端获取输入指令，如: `scrapy crawl spider_name`
 ```
 def execute(argv=None, settings=None):
     if argv is None:  # 获取参数
@@ -32,16 +32,16 @@ def execute(argv=None, settings=None):
             settings['EDITOR'] = editor
     check_deprecated_settings(settings)
 ```
-该段代码中主要查看的就是```get_project_settings()```  
-首先就是从```os.environ```查找，不存在而选择默认，并执行```init_env```函数来初始项目环境
+该段代码中主要查看的就是`get_project_settings()`  
+首先就是从```os.environ```查找，不存在而选择默认，并执行`init_env`函数来初始项目环境
 ```
 def get_project_settings():
     if ENVVAR not in os.environ:  # ENVVAR => 'SCRAPY_SETTINGS_MODULE'
         project = os.environ.get('SCRAPY_PROJECT', 'default')
         init_env(project)
 ```
-```closest_scrapy_cfg```是一个递归函数，用于往父文件查找cfg配置文件  
-故在```init_env```函数中我们可以知道，该函数没有返回值，仅仅是查找配置文件cfg，
+`closest_scrapy_cfg`是一个递归函数，用于往父文件查找cfg配置文件  
+故在`init_env`函数中我们可以知道，该函数没有返回值，仅仅是查找配置文件cfg，
 然后将其加载到系统环境中。
 ```
 def init_env(project='default', set_syspath=True):
@@ -64,7 +64,7 @@ def closest_scrapy_cfg(path='.', prevpath=None):
     return closest_scrapy_cfg(os.path.dirname(path), path) 
 ```
 在cfg文件中有这样一段代码，他指定了settings文件的路径。故加载cfg的最终目的就是为了加载
-settings模块，```get_project_settings```函数的功能就实现了。
+settings模块，`get_project_settings`函数的功能就实现了。
 ```
 [settings]
 default = czaSpider.settings
@@ -82,10 +82,10 @@ def execute(argv=None, settings=None):
 ```
 
 #### 4、执行cmd
-```_run_print_help```执行目标函数，若报错则追加打印日志的功能  
-```cmd.process_options```初始化cmd的配置  
-```__run_command```执行目标函数    
-```cmd.run(args, opts)```指令运行  
+`_run_print_help`执行目标函数，若报错则追加打印日志的功能  
+`cmd.process_options`初始化cmd的配置  
+`__run_command`执行目标函数    
+`cmd.run(args, opts)`指令运行  
 ```
 def execute(argv=None, settings=None):
     cmd.settings = settings  # 赋值settings
