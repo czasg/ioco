@@ -400,9 +400,17 @@ body{
     padding: 10px;
     border-radius: 5px;
 }
-.label-box > .badge{
+.label-box > a > .badge{
     font-size: 14px;
     margin: 5px 3px;
+    padding: 5px;
+    line-height: 14px;
+    text-align: center;
+}
+.label-box > a:hover > .badge{
+    color: skyblue;
+    transform: scale(1.2);
+    transition: transform .5s ease;
 }
 #blog-iframe{
     border-radius: 10px;

@@ -43,6 +43,11 @@ var app = new Vue({
         blog_page: false,
         blog_url: '',
         page_count: 1,
+        label_blogs: [],
+        label_obj: {},
+        label_blog_total: 0,
+        label_page_total: 0,
+        label_flag: false,
     },
     methods: {
         searching: function(blogs, searching_key){
@@ -68,13 +73,37 @@ var app = new Vue({
             if (this.blog_page) return
             if (this.loading_flag) return
             this.loading_flag = true
-            if (this.blog_obj.next_url && this.all_blogs.length < this.settings.blog_total){
-                let blog_obj = await axios.get(this.blog_obj.next_url)
-                this.blog_obj = blog_obj.data
-                this.all_blogs = this.all_blogs.concat(this.blog_obj.blogs)
+
+            if (this.label_flag){
+                var blog_obj = this.label_obj,
+                    all_blogs = this.label_blogs,
+                    blog_total = blog_obj.total;
+            } else {
+                var blog_obj = this.blog_obj,
+                    all_blogs = this.all_blogs,
+                    blog_total = this.settings.blog_total;
+            }
+
+            if (blog_obj.next_url && all_blogs.length < blog_total){
+                let blog_obj_temp = await axios.get(blog_obj.next_url)
+
+                if (this.label_flag) {
+                    this.label_obj = blog_obj_temp.data
+                    this.label_blogs = this.label_blogs.concat(this.label_obj.blogs)
+                }else{
+                    this.blog_obj = blog_obj_temp.data
+                    this.all_blogs = this.all_blogs.concat(this.blog_obj.blogs)
+                }
                 this.page_count += 1
                 this.anime_func_all()
             }
+//            if (this.blog_obj.next_url && this.all_blogs.length < this.settings.blog_total){
+//                let blog_obj = await axios.get(this.blog_obj.next_url)
+//                this.blog_obj = blog_obj.data
+//                this.all_blogs = this.all_blogs.concat(this.blog_obj.blogs)
+//                this.page_count += 1
+//                this.anime_func_all()
+//            }
             this.loading_flag = false
         },
         scroll_watching: function(){
@@ -124,13 +153,29 @@ var app = new Vue({
                 this.scroll_watching_animation()
             })
         },
+        show_labels_blog: function(){
+            this.label_flag = false;
+            this.blog_page = false;
+            this.$nextTick(()=>{
+                this.scroll_watching_animation()
+            })
+        },
         anime_func_all: function(){
+            if (this.label_flag) {
+                blogs = this.label_blogs
+                blogs_total = this.label_blog_total
+                pages_total = this.label_page_total
+            } else {
+                blogs = this.all_blogs
+                blogs_total = this.settings.blog_total
+                pages_total = this.settings.blog_total_page
+            }
             var num = 0
-            this.all_blogs.forEach((data) => {
+            blogs.forEach((data) => {
                 num += data.length
             })
-            this.anime_func('#blog_count_svg', '#blog_count', num, this.settings.blog_total)
-            this.anime_func('#blog_page_count_svg', '#blog_page_count', this.page_count, this.settings.blog_total_page)
+            this.anime_func('#blog_count_svg', '#blog_count', num, blogs_total)
+            this.anime_func('#blog_page_count_svg', '#blog_page_count', this.page_count, pages_total)
         },
         anime_func: function(h3id, blogId, num, all_num){
             var
@@ -156,6 +201,26 @@ var app = new Vue({
                     h3.innerText = `${obj.count}/${all_num}`
                 }
             });
+        },
+        async loading_label(label){
+            this.loading_flag = true
+            this.label_flag = true
+//            this.blog_page = true
+            let blog_obj = await axios.get(label.url)
+            this.label_obj = blog_obj.data
+            this.label_blogs = this.label_obj.blogs
+            this.page_count = 1
+            this.label_blog_total = label.total
+            this.label_page_total = label.total_page
+            this.anime_func_all()
+            this.loading_flag = false
+        },
+        choose_label_blog: function(){
+            if (this.label_flag){
+                return this.label_blogs
+            } else {
+                return this.all_blogs
+            }
         }
     }
 })

@@ -22,8 +22,9 @@
                 <input type="text" v-model="search_content" ref="search_box">
                 <span data-placeholder="搜索"></span>
             </div>
-            <div class="col-sm-3 col-xs-2" style="margin-top:20px;" v-if="blog_page">
-                <button class="btn btn-default" @click="show_all_blog">返回首页</button>
+            <div class="col-sm-3 col-xs-2" style="margin-top:20px;">
+                <button class="btn btn-default" @click="show_all_blog" v-if="blog_page">返回</button>
+                <button class="btn btn-default" @click="show_labels_blog" v-if="label_flag">首页</button>
             </div>
         </div>
     </div>
@@ -101,9 +102,11 @@
                     </div>
                 </div>
                 <div class="label-box">
-                    <span class="badge" v-for="label in settings.labels">
-                        {{label.name + ' ' + label.total}}
-                    </span>
+                    <a href="#" v-for="label in settings.labels" @click.prevent="loading_label(label)">
+                        <span class="badge">
+                            {{label.name + ' ' + label.total}}
+                        </span>
+                    </a>
                 </div>
             </div>
             <div class="col-sm-9 col-xs-12" id="blog">
@@ -111,7 +114,7 @@
                     <iframe id="blog-iframe" :src="blog_url" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" width="100%"></iframe>
                 </div>
                 <div v-else>
-                    <div class="blog-row" v-for="blogs in all_blogs">
+                    <div class="blog-row" v-for="blogs in choose_label_blog(label_flag)">
                             <div class="blog-box" v-for="blog in searching(blogs, search_content)" :key="blog.blog_id">
                                 <div class="blog-front">
                                     <div class="blog-label">
@@ -129,7 +132,6 @@
                                     <div class="blog-content">
                                         {{ blog.blog_content }}
                                     </div>
-<!--                                    <a class="blog-detail" :href="blog.blog_url" target="_blank"><span class="badge">跳转详情</span></a>-->
                                     <a class="blog-detail" href="#" @click.prevent="blog_detail(blog.blog_url)"><span class="badge">跳转详情</span></a>
                                 </div>
                             </div>
