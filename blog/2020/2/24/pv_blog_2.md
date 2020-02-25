@@ -2,13 +2,14 @@
 https://ae01.alicdn.com/kf/Hbe459a22bc004f4e8cd4557223febd27Z.png
 scrapy
 Scrapy源码（一）
-Scrapy是基于twisted搭建的异步分布式框架，由engine、schedule、download、spider、pipeline组成
-Scrapy是基于twisted搭建的异步分布式框架，由engine、schedule、download、spider、pipeline组成。获取参数、加载配置、加载cmd、执行cmd
+Scrapy是基于twisted搭建的异步分布式框架。cmdline,py是框架的启动关键。
+Scrapy是基于twisted搭建的异步分布式框架，由engine、schedule、download、spider、pipeline组成。cmdline,py包括获取参数、加载配置、加载cmd、执行cmd
 -->
 
 ## Scrapy源码（一）
 
-> Scrapy是基于twisted搭建的异步分布式框架，由engine、schedule、download、spider、pipeline组成
+> Scrapy是基于twisted搭建的异步分布式框架，由engine、schedule、download、spider、pipeline组成  
+> cmdline,py包括获取参数、加载配置、加载cmd、执行cmd
 
 ### cmdline
 #### 1、获取参数
