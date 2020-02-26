@@ -54,31 +54,31 @@ body{
     justify-content: space-around;
     flex-wrap: wrap;
     margin-bottom: 30px;
+}
+.blog-box{
+    height: 400px;
     opacity: 0;
     top: 100px;
     transition:
         opacity 1s ease,
         top 1s ease;
-}
-.blog-box{
-    height: 400px;
     width: 30%;
     max-width: 300px;
     overflow: hidden;
     border-radius: 5px;
     position: relative;
     border: 1px solid #000;
+    margin: 0 15px;
+    margin-bottom: 15px;
 }
 @media screen and (max-width: 1200px){
     .blog-box{
         width: 50%;
-        margin-bottom: 5px;
     }
 }
 @media screen and (max-width: 600px){
     .blog-box{
         width: 100%;
-        margin-bottom: 5px;
     }
 }
 .blog-box:hover{

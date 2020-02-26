@@ -114,28 +114,28 @@
                     <iframe id="blog-iframe" :src="blog_url" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" width="100%"></iframe>
                 </div>
                 <div v-else>
-                    <div class="blog-row" v-for="blogs in choose_label_blog(label_flag)">
-                            <div class="blog-box" v-for="blog in searching(blogs, input_content)" :key="blog.blog_id">
-                                <div class="blog-front">
-                                    <div class="blog-label">
-                                        <span v-for="label in blog.labels">{{label}}</span>
-                                    </div>
-                                    <img class="blog-img" src="" :src="blog.blog_img" alt="">
-                                    <h3 class="blog-title">{{blog.blog_title}}</h3>
-                                    <div class="blog-abstract">{{ blog.blog_abstract }}</div>
-                                    <div class="blog-footer">
-                                        <span class="badge">{{ blog.blog_author }}</span>
-                                        <span class="badge">{{ blog.blog_created }}</span>
-                                    </div>
+                    <div class="blog-row">
+                        <div class="blog-box" v-for="blog in searching(choose_label_blog(label_flag), input_content)" :key="blog.blog_id">
+                            <div class="blog-front">
+                                <div class="blog-label">
+                                    <span v-for="label in blog.labels">{{label}}</span>
                                 </div>
-                                <div class="blog-back">
-                                    <div class="blog-content">
-                                        {{ blog.blog_content }}
-                                    </div>
-                                    <a class="blog-detail" href="#" @click.prevent="blog_detail_func(blog.blog_url)"><span class="badge">跳转详情</span></a>
+                                <img class="blog-img" src="" :src="blog.blog_img" alt="">
+                                <h3 class="blog-title">{{blog.blog_title}}</h3>
+                                <div class="blog-abstract">{{ blog.blog_abstract }}</div>
+                                <div class="blog-footer">
+                                    <span class="badge">{{ blog.blog_author }}</span>
+                                    <span class="badge">{{ blog.blog_created }}</span>
                                 </div>
                             </div>
+                            <div class="blog-back">
+                                <div class="blog-content">
+                                    {{ blog.blog_content }}
+                                </div>
+                                <a class="blog-detail" href="#" @click.prevent="blog_detail_func(blog.blog_url)"><span class="badge">跳转详情</span></a>
+                            </div>
                         </div>
+                    </div>
                 </div>
                 <div class="loading-box" v-show="loading_flag">
                         <div class="loading-bar"></div>

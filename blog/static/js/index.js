@@ -116,7 +116,7 @@ var app = new Vue({
         scroll_watching_animation: function(){
             let top = pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
 	  		let vh = document.documentElement.clientHeight
-	  		let dom = document.querySelectorAll(".blog-row")
+	  		let dom = document.querySelectorAll(".blog-box")
 	  		dom.forEach(v => {
 	  		    if(top + vh > v.offsetTop){
                     v.style.opacity = 1
@@ -152,11 +152,7 @@ var app = new Vue({
             }
         },
         _anime_func_all(all_blog, blog_total, pages_total){
-            var num = 0
-            all_blog.forEach((data) => {
-                num += data.length
-            })
-            this.anime_func('#blog_count_svg', '#blog_count', num, blog_total)
+            this.anime_func('#blog_count_svg', '#blog_count', all_blog.length, blog_total)
             this.anime_func('#blog_page_count_svg', '#blog_page_count', this.page_count, pages_total)
         },
         anime_func: function(h3id, blogId, num, all_num){
