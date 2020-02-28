@@ -1,6 +1,5 @@
-from minitools.github.blog import MdBlog
+from minitools.github.blog import BlogManager, GatherManager
 
 if __name__ == '__main__':
-    # MdBlog(__file__).create()
-    MdBlog(__file__).gather()
-    # MdBlog(__file__).git_clone(r'D:\utils_gits\Git\bin\git')
+    # BlogManager(__file__).create()
+    GatherManager(__file__).gather()
