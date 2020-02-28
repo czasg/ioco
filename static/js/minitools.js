@@ -98,3 +98,18 @@ class MiniRandom{
         return results
     }
 }
+
+class MiniLocation{
+    position(box){
+        return box.getBoundingClientRect()
+    }
+    coordinates(box){
+        let
+            position = this.position(box),
+            e = event;
+        return {
+            x: e.clientX - position.left,
+            y: e.clientY - position.top
+        }
+    }
+}
