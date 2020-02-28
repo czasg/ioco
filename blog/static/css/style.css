@@ -81,8 +81,8 @@ body{
         width: 100%;
     }
 }
-.blog-box:hover{
-    box-shadow: 0 0 30px #fff;
+.blog-box:hover,.user-box:hover,.label-box:hover,.menu-box:hover,.count-box:hover{
+    box-shadow: 0 0 30px #333;
 }
 .blog-box:hover > .blog-front{
     transform: perspective(600px) rotateY(180deg);
@@ -147,6 +147,7 @@ body{
     padding: 10px;
     position: relative;
     background: #f1f1f1;
+    user-select: none;
 }
 .user-img-text{
     position: absolute;
@@ -290,9 +291,11 @@ body{
     max-height: 0;
     transition: max-height 0.5s;
 }
+.son-menu a,.son-menu a:hover{
+    text-decoration: none;
+}
 .son-menu > *{
     display: block;
-    text-decoration: none;
     color: #fff;
     font-size: 18px;
     position: relative;
