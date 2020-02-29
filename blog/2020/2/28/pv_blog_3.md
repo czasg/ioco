@@ -54,3 +54,29 @@ class Solution:
         return t1
 ```
 
+### 3、对称二叉树
+给定一个二叉树，检查它是否是镜像对称的。即二叉树是否以中线对称
+```python
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        return self.isMirror(root, root)
+
+    def isMirror(self, r1, r2):
+        if all((r1, r2)): return (r1.val == r2.val) \
+            and self.isMirror(r1.left, r2.right) \
+            and self.isMirror(r1.right, r2.left)
+        return True if r1 is r2 else False
+```
+
+### 4、翻转二叉树
+翻转一棵二叉树。以中间轴为线反转过来
+```python
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if root:
+            left = self.invertTree(root.left)
+            right = self.invertTree(root.right)
+            root.left = right
+            root.right = left
+            return root
+```
