@@ -55,6 +55,9 @@ var app = new Vue({
         label_blog_total: 0,
         label_page_total: 0,
     },
+    updated(){
+        this.show_all_blog()
+    },
     methods: {
         searching: function(blogs, searching_key){
             return blogs.filter(blog => {
@@ -78,7 +81,7 @@ var app = new Vue({
             if (this.loading_flag) return
             this.loading_flag = true
             if (this.label_flag){
-                this._loading_blog(this.label_obj, this.label_blog, this.label_obj)
+                this._loading_blog(this.label_obj, this.label_blog, this.label_blog_total)
             } else {
                 this._loading_blog(this.blog_obj, this.index_blog, this.settings.blog_total)
             }
