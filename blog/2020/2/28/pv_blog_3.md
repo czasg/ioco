@@ -62,10 +62,11 @@ class Solution:
         return self.isMirror(root, root)
 
     def isMirror(self, r1, r2):
-        if all((r1, r2)): return (r1.val == r2.val) \
+        if r1 is None and r2 is None: return True
+        if r1 is None or r2 is None: return False
+        return (r1.val == r2.val) \
             and self.isMirror(r1.left, r2.right) \
             and self.isMirror(r1.right, r2.left)
-        return True if r1 is r2 else False
 ```
 
 ### 4、翻转二叉树
@@ -73,10 +74,10 @@ class Solution:
 ```python
 class Solution:
     def invertTree(self, root: TreeNode) -> TreeNode:
-        if root:
-            left = self.invertTree(root.left)
-            right = self.invertTree(root.right)
-            root.left = right
-            root.right = left
-            return root
+        if root is None: return None
+        left = self.invertTree(root.left)
+        right = self.invertTree(root.right)
+        root.left = right
+        root.right = left
+        return root
 ```
