@@ -106,10 +106,22 @@ class MiniLocation{
     coordinates(box){
         let
             position = this.position(box),
-            e = event;
+            width = position.right - position.left,
+            height = position.bottom - position.top,
+            e = event,
+            x = e.clientX - position.left,
+            y = e.clientY - position.top,
+            pxv = x / width,
+            pyv = y / height,
+            px = `${pxv * 100}%`,
+            py = `${pyv * 100}%`;
         return {
-            x: e.clientX - position.left,
-            y: e.clientY - position.top
+            x: x,
+            y: y,
+            px: px,
+            py: py,
+            pxv: pxv,
+            pyv: pyv
         }
     }
 }
