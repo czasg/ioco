@@ -81,3 +81,61 @@ class Solution:
         root.right = left
         return root
 ```
+
+### 5、单值二叉树
+如果二叉树每个节点都具有相同的值，那么该二叉树就是单值二叉树。
+```python
+class Solution:
+    def isUnivalTree(self, root: TreeNode) -> bool:
+        self.val = root.val
+        return self.single(root) != -1
+
+    def single(self, root):
+        if not root: return
+        val = self.single(root.left)
+        if val == -1: return -1
+        val = self.single(root.right)
+        if val == -1: return -1
+        if root.val != self.val: return -1
+```
+
+### 6、二叉树的坡度
+给定一个二叉树，计算整个树的坡度。
+> 一个树的节点的坡度定义即为，该节点左子树的结点之和和右子树结点之和的差的绝对值。空结点的的坡度是0。  
+> 整个树的坡度就是其所有节点的坡度之和。
+```python
+class Solution:
+    def findTilt(self, root: TreeNode) -> int:
+        self.result = 0
+        self.test(root)
+        return self.result
+
+    def test(self, root):
+        if not root: return 0
+        val1 = self.test(root.left)
+        val2 = self.test(root.right)
+        self.result += abs(val1 - val2)
+        return val1 + val2 + root.val
+```
+
+### 7、二叉树的堂兄弟节点
+在二叉树中，根节点位于深度 0 处，每个深度为 k 的节点的子节点位于深度 k+1 处。  
+如果二叉树的两个节点深度相同，但父节点不同，则它们是一对堂兄弟节点。  
+我们给出了具有唯一值的二叉树的根节点 root，以及树中两个不同节点的值 x 和 y。  
+只有与值 x 和 y 对应的节点是堂兄弟节点时，才返回 true。否则，返回 false。
+```python
+class Solution:
+    def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
+        parent = {}
+        depth = {}
+
+        def test(r, p=None):
+            if not r: return
+            depth[r.val] = 1 + depth[p.val] if p else 0
+            parent[r.val] = p
+            test(r.left, r)
+            test(r.right, r)
+
+        test(root)
+        return depth[x] == depth[y] and parent[x] != parent[y]
+```
