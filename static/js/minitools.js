@@ -41,6 +41,7 @@ class AlertWindow{
             'transform': 'translate(-50%, -50%)',
             'display': 'none',
             'color': '#fff',
+            'white-space': 'nowrap',
         }
     }
     alert(msg, bgColor, delay=1200){
