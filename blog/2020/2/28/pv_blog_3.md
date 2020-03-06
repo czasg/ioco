@@ -139,3 +139,34 @@ class Solution:
         test(root)
         return depth[x] == depth[y] and parent[x] != parent[y]
 ```
+
+### 8、修剪二叉搜索树
+给定一个二叉搜索树，同时给定最小边界L 和最大边界 R。通过修剪二叉搜索树，使得所有节点的值在[L, R]中 (R>=L) 。你可能需要改变树的根节点，所以结果应当返回修剪好的二叉搜索树的新的根节点。
+```python
+class Solution:
+    def trimBST(self, root: TreeNode, L: int, R: int) -> TreeNode:
+        def test(r):
+            if not r: return
+            if r.val < L: return test(r.right)
+            if r.val > R: return test(r.left)
+            r.left = test(r.left)
+            r.right = test(r.right)
+            return r
+        return test(root)
+```
+
+### 9、二叉树的直径
+给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过根结点。
+```python
+class Solution:
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        self.mmm = 1
+        def test(r):
+            if not r: return 0
+            left = test(r.left)
+            right = test(r.right)
+            self.mmm = max(self.mmm, left + right + 1)
+            return max(left, right) + 1
+        test(root)
+        return self.mmm - 1
+```
