@@ -79,18 +79,15 @@ var app = new Vue({
         async loading_blog(){
             if (this.blog_detail) return
             if (this.loading_flag) return
-            this.loading_flag = true
-            setTimeout(()=>{
-                if (this.label_flag){
-                    this._loading_blog(this.label_obj, this.label_blog, this.label_blog_total)
-                } else {
-                    this._loading_blog(this.blog_obj, this.index_blog, this.settings.blog_total)
-                }
-                this.loading_flag = false
-            }, 1000)
+            if (this.label_flag){
+                this._loading_blog(this.label_obj, this.label_blog, this.label_blog_total)
+            } else {
+                this._loading_blog(this.blog_obj, this.index_blog, this.settings.blog_total)
+            }
         },
         async _loading_blog(blog_obj, all_blog, blog_total){
             if (blog_obj.next_url && all_blog.length < blog_total){
+                this.loading_flag = true
                 let blog_obj_temp = await axios.get(blog_obj.next_url)
                 if (this.label_flag) {
                     this.label_obj = blog_obj_temp.data
@@ -100,6 +97,7 @@ var app = new Vue({
                     this.index_blog = this.index_blog.concat(this.blog_obj.blogs)
                 }
                 this.page_count += 1
+                this.loading_flag = false
                 this.anime_func_all()
             }
         },
@@ -114,7 +112,7 @@ var app = new Vue({
                 scrollTop = win.scrollTop(),
                 scrollHeight = doc.height(),
                 windowHeight = win.height();
-            if(scrollTop + windowHeight + 1 > scrollHeight){
+            if(scrollTop + windowHeight + 1 > scrollHeight & this.label_blog_total < this.){
         　　　　this.loading_blog();
         　　}
         },
