@@ -80,12 +80,14 @@ var app = new Vue({
             if (this.blog_detail) return
             if (this.loading_flag) return
             this.loading_flag = true
-            if (this.label_flag){
-                this._loading_blog(this.label_obj, this.label_blog, this.label_blog_total)
-            } else {
-                this._loading_blog(this.blog_obj, this.index_blog, this.settings.blog_total)
-            }
-            this.loading_flag = false
+            setTimeout(()=>{
+                if (this.label_flag){
+                    this._loading_blog(this.label_obj, this.label_blog, this.label_blog_total)
+                } else {
+                    this._loading_blog(this.blog_obj, this.index_blog, this.settings.blog_total)
+                }
+                this.loading_flag = false
+            }, 1000)
         },
         async _loading_blog(blog_obj, all_blog, blog_total){
             if (blog_obj.next_url && all_blog.length < blog_total){

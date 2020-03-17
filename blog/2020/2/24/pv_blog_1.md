@@ -2,8 +2,7 @@
 https://ae01.alicdn.com/kf/H127983aa4ee845f5bb99ef81d1cbb2e2Z.png
 爬虫|框架设计
 分布式爬虫调度（一）
-基于Flask、Flask-APScheduler、Scrapy、RabbitMQ、Redis、Mongodb等搭建分布式爬虫调度框架  
-整体框架由client端、master端、中间件、数据库、salve端构成。此框架前后端分离，前端暂时部署在github page上，后端只提供数据和调度服务。 其中master端由两个服务器组成，分别提供调度服务和数据分析服务 
+基于flask搭建的后端、aps-scheduler实现的调度服务，采用rabbitmq、rpc管道等实现的分布式通信与管理。
 -->
 
 ## 分布式爬虫调度（一）
@@ -53,7 +52,7 @@ scheduler端以RabbitMQ作为broker，发布调度生成的task任务，而消�
 朴素贝叶斯算法：  
 基于词频的统计模型。假设各特征之间无关联，在给定目标向量的前提下，计算该向量
 属于各个类别标签的概率，并取其中最大的为最终分类。  
-```p(c|x) = p(c)*p(c|x) / p(x)```  
+```p(c|x) = p(c)*p(x|c) / p(x)```  
 p(c)表示各标签概率  
 p(x)表示目标向量  
 p(c|x)表示在给定目标向量的前提下，属于标签c类别的概率  
