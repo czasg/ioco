@@ -112,7 +112,7 @@ var app = new Vue({
                 scrollTop = win.scrollTop(),
                 scrollHeight = doc.height(),
                 windowHeight = win.height();
-            if(scrollTop + windowHeight + 1 > scrollHeight & this.label_blog_total < this.){
+            if(scrollTop + windowHeight + 1 > scrollHeight){
         　　　　this.loading_blog();
         　　}
         },
