@@ -8,6 +8,9 @@ body{
     background-image: linear-gradient(135deg, #81D4FA, #CE93D8);
     background-attachment: fixed;
 }
+#app{
+    min-height: 100vh;
+}
 .blog-search > .col-xs-8{
     padding: 0;
 }
