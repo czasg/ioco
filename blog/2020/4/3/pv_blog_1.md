@@ -100,6 +100,8 @@ path.arc(75, 75, 50, 0, Math.PI*2, true);
 path.moveTo(110,75);
 path.arc(75, 75, 35, 0, Math.PI, false);
 path.moveTo(65, 65);
+path.lineTo(100, 100);
+path.closePath()
 ctx.strokeStyle = '#0000ff';
 ctx.stroke(path);  // 绘制路径
 ```
