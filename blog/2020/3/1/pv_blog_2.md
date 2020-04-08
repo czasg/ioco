@@ -79,10 +79,11 @@ pvblog是我近期的写的，他本意是基于前后端分离搭建的静态�
 
 <!--基础知识
 Dict/HashMap
-闭包
-装饰器
+闭包/装饰器
 多线程原理
 线程本地数据
+python垃圾回收
+flask蓝图
 正向代理
 反向代理
 Nginx负载均衡
@@ -90,34 +91,56 @@ LVS负载均衡
 TCP/IP四层协议
 tcp/udp区别
 tcp粘包拆包
-http握手协议
+TCP握手协议
 https原理
 MVC
 MVVM
 session/cookie/token - https://ae01.alicdn.com/kf/H38d70dda56b84a6bba7ac4030e1749f4Y.png
 数据库索引
 数据库事务
+分库分表/垂直分表/水平分表
+迁移数据库
+读写分离/主从复制/主从同步时延
+高并发架构
+数据库扩容 - https://ae01.alicdn.com/kf/Hb2f084e9929344ff947b2d5f67b6038cU.png
+MySQL隔离级别 - https://ae01.alicdn.com/kf/Hd7028c701a924156b314cb6832e92e7bM.png
 分布式事务
 消息队列的优点/缺点
-MySQL隔离级别 - https://ae01.alicdn.com/kf/Hd7028c701a924156b314cb6832e92e7bM.png
 缓存的优点
 缓存穿透、缓存击穿、缓存雪崩
 缓存并发竞争
 缓存双写一致性
 redis与memcached
-redis得CAS机制
 redis数据丢失与过期策略
 redis内存淘汰机制 - https://ae01.alicdn.com/kf/Hfdea933b4bd142e9a3a0fc2d830a7b35k.png
 redis持久化
+redis乐观锁和分布式锁
 一致性哈希算法
 LRU算法
 KNN
 决策树
 朴素贝叶斯
 梯度下降
+
+如何从大量的 URL 中找出相同的 URL？
+如何从大量数据中找出高频词？
+如何找出某一天访问百度网站最多的 IP？
+如何在大量的数据中找出不重复的整数？
+如何在大量的数据中判断一个数是否存在？
+如何查询最热门的查询串？
+如何统计不同电话号码的个数？
+如何从 5 亿个数中找出中位数？
+如何按照 query 的频度排序？
+如何找出排名前 500 的数？
 -->
 
 <!--temp
+NoSQL的优势，他相对与关系型数据库来说，他降低了数据的安全性、没有事务的机制，
+然后没有复杂查询的语句，从而他的性能相对来说得到了提升。
+但是有些场景是一定需要事务支持的，所以关系型数据库还是不可替代的
+
+nginx的分流策略，默认是轮询。还可以根据ip哈希，配置权重。
+
 
 -->
 
