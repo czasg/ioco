@@ -1,0 +1,139 @@
+<!--
+https://ae01.alicdn.com/kf/Haf4d3b0529ba47669bf69c7bfc71a5f1Y.png
+职场
+前端面试复习
+前端涉及到的知识点非常的多，需要沉下心来好好学习
+包括网络、设计模式、安全、javascript基础、css基础、框架vue等
+-->
+
+## 前端面试复习
+
+> 前端涉及到的知识点非常的多，需要沉下心来好好学习。包括网络、设计模式、安全、javascript基础、css基础、框架vue等
+
+#### 网络
+* 常见的状态码有哪些
+* 304表示什么-和302有什么区别
+* 介绍一下HTTP的缓存策略
+* connect为keep-alive
+* 介绍下DNS
+* TCP三次握手四次挥手
+* HTTPS工作原理
+* CND是什么以及应用场景
+* CND回源是什么
+* 输入URL到页面展示
+
+#### 设计模式
+* vue和react中的应用有什么设计模式
+
+#### 数据结构
+* 栈-队列-链表-树
+* 用javascript实现?
+
+#### 算法
+* 排序算法和复杂度
+* 二叉树前中后序3遍历
+* 深度优先和广度优先的思路和应用场景
+* 动态规划
+
+#### 安全
+* XSS
+* CSRF
+* HTTPS
+* 风控策略
+* 可信前端
+* 前端-服务端的安全策略
+
+#### javascript基础
+* 执行上下文
+* 作用域链
+* 闭包及应用场景
+* this-call-apply-bind
+* 原型和继承
+* Promise
+* 深浅拷贝，如何实现及解决循环引用的问题
+* 事件机制-宏任务和微任务
+* 数组的方法
+
+#### css基础
+* position
+* 行内元素和块元素
+* flex布局
+* 如何使用flex实现9宫格布局
+* flex:1 是指什么
+* flex-shrink和flex-basic属性
+* grid布局
+* 移动端的ipx是怎么解决的
+* rem和vw方案，各有什么优缺点
+* rem方案的font-size是挂在哪
+* rem方案时移动端字体是如何处理的
+* 重绘回流，什么是重绘和回流，如何避免
+* 居中的几种常见布局
+* 层叠上下文，z-index
+* sass和less
+
+#### vue框架
+* mvvm和mvc的区别
+* 生命周期中nextTick如何实现的
+* 父子组件挂载，生命周期顺序如何
+* 数据绑定中，双向绑定如何实现，即数据劫持和发布订阅
+* 数组和对象的数据观察有什么特殊处理
+* defineProperty和proxy有什么区别
+* vue中数据频繁更新，但最后为什么只会更新一次
+* 状态管理，什么是状态管理，为什么需要状态管理
+* vuex和redux的区别
+* 如何实现简单的状态管理
+* 父子组件如何实现通信
+* 爷孙组件如何实现通信
+* 兄弟组件如何实现通信
+* virtual DOM是什么，为什么要有，解决了什么问题
+* vue的diff策略，和react有什么不同
+* key有什么用
+* vue的computed计算属性和watch是如何实现的
+* react hook是什么
+* vue和react有什么不同，如何考虑选型
+
+#### 工程化
+* webpack构建流程
+* 热更新是如何实现的
+* webpack如何做性能优化
+* 前端页面是如何发布到线上的
+* weex是什么，为什么比h5块，有什么缺点
+
+#### 性能优化
+* 打包优化
+    * webpack
+        * loader
+        * dll
+        * happypack
+        * 压缩代码
+        * tree shaking
+    * 图片base64、cnd
+* 网络优化
+    * dns
+    * cdn
+    * 缓存
+    * preload、prefetch、懒加载
+    * ssr
+* 代码优化
+    * 懒加载
+    * dom、style批量更新
+
+#### typescript
+* typescript是什么，和js相比优缺点如何
+* 什么是泛型
+* 接口interface
+* d.ts是什么
+* 如何编译的
+* namespace/module
+
+
+
+
+
+
+
+
+
+
+
+
